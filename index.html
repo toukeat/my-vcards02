@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCARD</title>
+</head>
+<body>
+   <title>GAIUS TOUKEA</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f3f4f6;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #fff;
+      max-width: 360px;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
+    .role { color: #4b5563; margin: 0 0 1.25rem; }
+    .links { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .links a {
+      text-decoration: none;
+      color: #111827;
+      background: #f9fafb;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .btn {
+      display: inline-block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>GAIUS TOUKEA</h1>
+    <p class="role">Développeur Web</p>
+    <div class="links">
+      <a href="tel:+250788000000">+250 725 100 855</a>
+      <a href="mailto:gaiustoukea.com">gaiustoukea.com</a>
+      <a href="https://gaiustoukea.com" target="_blank" rel="noopener">exemple.com</a>
+    </div>
+    <button class="btn" id="downloadVcf" type="button">Enregistrer le contact (.vcf)</button>
+  </main>
+
+  <script>
+    document.getElementById("downloadVcf").addEventListener("click", () => {
+      const vcf = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        "N:Gaius;Toukea;;;",
+        "FN:Gaius Toukea",
+        "TITLE:DevOps",
+        "TEL;TYPE=CELL:+250 725 100 855",
+        "EMAIL:gaiustoukeat@gmail.com",
+        "URL:https://gaiustoukea.com",
+        "END:VCARD"
+      ].join("\n");
+
+      const blob = new Blob([vcf], { type: "text/vcard;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "gaius-toukea.vcf";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
